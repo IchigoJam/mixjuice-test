@@ -18,21 +18,18 @@ serve(async (req) => {
         headers: [
           ["Allow", "OPTIONS, GET, HEAD, POST"],
           ["Access-Control-Allow-Origin", "*"],
-          ["Access-Control-Allow-Headers", "Content-Type"],
+          //["Access-Control-Allow-Headers", "Content-Type"],
         ],
       });
     }
-    const b = req.method == "POST" ? new Uint8Array(await req.arrayBuffer()) : null;
-    console.log(b);
-    
-    const body = b ? b : new TextEncoder().encode("ok");
-    return new Response(b, {
+    const body = req.method == "POST" ? new Uint8Array(await req.arrayBuffer()) : new TextEncoder().encode("ok");
+    return new Response(body, {
       status: 200,
       statusText: "ok",
       headers: [
         ["Access-Control-Allow-Origin", "*"],
-        ["Content-Length", b.length],
-        ["Content-Type", "application/octet-stream"],
+        ["Content-Length", body.length],
+        ["Content-Type", "text/plain"],
       ],
     });
   } catch (e) {
