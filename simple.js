@@ -8,7 +8,6 @@ console.log(`http://${addr}`)
 
 serve(async (req) => {
   try {
-    console.log(req);
     const { pathname } = new URL(req.url);
     console.log(req, pathname);
     
